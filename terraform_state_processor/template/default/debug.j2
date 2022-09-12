@@ -1,0 +1,18 @@
+DEBUG DUMP
+Terraform Format Version: {{ format_version }}
+Terraform Application Version: {{ terraform_version }}
+
+[Data Output: raw_entries]
+{%- for entry in raw_entries %}
+{{ entry }}
+{%- endfor %}
+
+[Processed Data Output: data]
+{%- for entry in data %}
+{{ entry }}
+{%- endfor %}
+
+[Processed Data Output: resources]
+{%- for entry in resources %}
+{{ entry }}
+{%- endfor %}

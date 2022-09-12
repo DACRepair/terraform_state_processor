@@ -7,13 +7,14 @@ import json
 
 class TerraformState:
     _package_base = None
-    _raw_state = dict
-    _resource_processors = {}
-    _data_processors = {}
+    _raw_state = dict()
+    _resource_processors = dict()
+    _data_processors = dict()
 
     format_version = None
     terraform_version = None
 
+    entries = []
     data = []
     resources = []
 
@@ -75,9 +76,9 @@ class TerraformState:
                 modules.extend(value)
         modules = [x for x in modules if isinstance(x, dict)]
         modules = [x for x in modules if 'resources' in x.keys()]
-        modules = [item for resources in modules for item in resources.get('resources')]
+        self.entries = [item for resources in modules for item in resources.get('resources')]
 
-        for item in modules:
+        for item in self.entries:
             mode = item.get('mode')
             _type = item.get('type')
             if mode == 'data':
