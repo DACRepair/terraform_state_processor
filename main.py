@@ -10,12 +10,12 @@ class CurrentState:
         with open(path, "r") as fp:
             self.tfstate = TerraformState(fp.read(), package_base)
 
-
 # #################################################################################################################### #
 
 
 path = "./tfstate.json"
 test = CurrentState(path)
 
+print(test.tfstate)
 print(test.tfstate.data)
 print(test.tfstate.resources)

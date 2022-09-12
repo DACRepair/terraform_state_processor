@@ -11,6 +11,9 @@ class TerraformState:
     _resource_processors = {}
     _data_processors = {}
 
+    format_version = None
+    terraform_version = None
+
     data = []
     resources = []
 
@@ -61,6 +64,9 @@ class TerraformState:
         return _processors
 
     def _process_statedata(self):
+        self.format_version = self._raw_state.get('format_version')
+        self.terraform_version = self._raw_state.get('terraform_version')
+
         values = self._raw_state.get('values')
         root = values.get('root_module', {}).values()
         modules = []
@@ -84,3 +90,11 @@ class TerraformState:
                 processor = self._resource_processors.get(_managedtype)
                 if processor is not None:
                     self.resources.append(processor(item))
+
+    def __str__(self):
+        header = f"<Terraform State Processor[Format {self.format_version}, Terraform {self.terraform_version}]"
+        stats = f"{len(self.data)} Data and {len(self.resources)} Resource Objects Loaded.>"
+        return f"{header}: {stats}"
+
+    def __repr__(self):
+        return self.__str__()

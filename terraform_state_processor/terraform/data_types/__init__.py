@@ -5,6 +5,7 @@ class BaseData(object):
     name = 'name'
     type = 'type'
     index = 'index'
+    change_version = 'values.change_version'
 
     def __init__(self, data: dict, **kwargs):
         self.__kwargs__ = kwargs
