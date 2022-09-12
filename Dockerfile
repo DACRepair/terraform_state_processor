@@ -20,5 +20,5 @@ RUN for file in *.whl; do pip install $file; done
 
 WORKDIR /data
 
-ENTRYPOINT "/usr/local/bin/tfstate_processor"
-CMD ['--help']
+ENTRYPOINT ["/usr/local/bin/tfstate_processor"]
+CMD ["--help"]
