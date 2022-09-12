@@ -1,33 +1,29 @@
-from pprint import pprint
+#! /usr/bin/env python3
 
-from terraform_state_processor.terraform.tfstate import TerraformState
-from terraform_state_processor.template.environment import TemplateEnv
-
-
-class CurrentState:
-    tfstate = None
-    template = None
-
-    def __init__(self, path: str = None, tfstate_package_base: str = None, template_path: str = None):
-        with open(path, "r") as fp:
-            self.tfstate = TerraformState(fp.read(), tfstate_package_base)
-
-        self.template = TemplateEnv(template_path)
-
-    def render_template(self, template: str = 'debug'):
-        template = self.template.find_template(template)
-        return self.template.render_template(*template,
-                                             format_version=self.tfstate.format_version,
-                                             terraform_version=self.tfstate.terraform_version,
-                                             data=self.tfstate.data, resources=self.tfstate.resources,
-                                             raw_entries=self.tfstate.entries)
+import os
+import click
+from terraform_state_processor.processor import StateProcessor
 
 
-path = "./tfstate.json"
-test = CurrentState(path)
+@click.command()
+@click.option("--tfstate", default="./tfstate.json", help="The terraform state file (json formatted).")
+@click.option("--tfstate-package-base", default=None, help="Package containing the resource processors.")
+@click.option("--template", default="debug", help="The template you would like to generate.")
+@click.option("--outfile", default=None, help="The file to write the output to (default is to stdout).")
+def application(tfstate, tfstate_package_base, template, outfile):
+    """Generates text data from the terraform state."""
+    tfstate = os.path.normpath(os.path.abspath(tfstate))
+    processor = StateProcessor(tfstate=tfstate, tfstate_package_base=tfstate_package_base)
+    template_data = processor.render_template(template)
+    if outfile:
+        outfile = os.path.normpath(os.path.abspath(outfile))
+        with open(outfile, "w") as fp:
+            fp.write(template_data)
+            fp.close()
+        click.echo(f"Wrote data to {outfile}.")
+    else:
+        click.echo(template_data)
 
-print(test.tfstate)
-print(test.render_template())
-# print(test.tfstate.entries)
-# print(test.tfstate.data)
-# print(test.tfstate.resources)
+
+if __name__ == "__main__":
+    application()
