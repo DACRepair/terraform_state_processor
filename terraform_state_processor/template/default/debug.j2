@@ -7,12 +7,7 @@ Terraform Application Version: {{ terraform_version }}
 {{ entry }}
 {%- endfor %}
 
-[Processed Data Output: data]
-{%- for entry in data %}
-{{ entry }}
-{%- endfor %}
-
-[Processed Data Output: resources]
+[Processed Resources: <Processor> name: type (processed fields)]
 {%- for entry in resources %}
 {{ entry }}
 {%- endfor %}

@@ -18,7 +18,6 @@ setup(
     packages=['terraform_state_processor',
               'terraform_state_processor.template',
               'terraform_state_processor.terraform',
-              'terraform_state_processor.terraform.data_types',
               'terraform_state_processor.terraform.resource_types'],
     package_data={"terraform_state_processor.template": ["default/*.j2"]},
 
