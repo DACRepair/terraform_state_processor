@@ -64,7 +64,7 @@ terraform {
   }
 }
 
-data "vsphere_folder" "some_folder" {} # FolderData(BaseResource)
+data "vsphere_folder" "some_folder" {} # FolderResource(BaseResource)
 
 resource "vsphere_virtual_machine" "virtual_machine" {} # VirtualMachineResource(BaseResource)
 ```
