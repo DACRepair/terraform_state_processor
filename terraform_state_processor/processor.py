@@ -14,7 +14,7 @@ class StateProcessor:
 
     def render_template(self, template: str = 'debug'):
         template = self.template.find_template(template)
-        return self.template.render_template(*template,
+        return self.template.render_template(template,
                                              format_version=self.tfstate.format_version,
                                              terraform_version=self.tfstate.terraform_version,
                                              resources=self.tfstate.resources,
