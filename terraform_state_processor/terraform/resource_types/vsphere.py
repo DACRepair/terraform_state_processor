@@ -1,4 +1,4 @@
-from . import BaseResource
+from terraform_state_processor.terraform.resource_types import BaseResource
 
 
 class VirtualMachineResource(BaseResource):

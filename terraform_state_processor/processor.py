@@ -6,9 +6,9 @@ class StateProcessor:
     tfstate = None
     template = None
 
-    def __init__(self, tfstate: str = None, template_path: str = None):
+    def __init__(self, tfstate: str = None, template_path: str = None, processor_path: str = None):
         with open(tfstate, "r") as fp:
-            self.tfstate = TerraformState(fp.read())
+            self.tfstate = TerraformState(fp.read(), custom_base=processor_path)
 
         self.template = TemplateEnv(template_path)
 
