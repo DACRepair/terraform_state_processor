@@ -16,8 +16,9 @@ WORKDIR /tmp/wheel
 COPY --from=build /build/dist/*.whl .
 COPY --from=build /build/dist/*.egg .
 
+RUN apk --no-cache add bash
 RUN for file in *.whl; do pip install $file; done
 
 WORKDIR /data
 
-ENTRYPOINT ["/usr/local/bin/tfstate_processor"]
+#ENTRYPOINT ["/usr/local/bin/tfstate_processor"]
