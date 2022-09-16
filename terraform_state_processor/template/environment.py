@@ -9,6 +9,7 @@ class TemplateEnv:
         if template_path is None:
             template_path = f"./{self.__module__.rsplit('.', 1)[0].replace('.', '/')}/default"
         self.template_path = os.path.normpath(os.path.abspath(template_path))
+        print(self.template_path)
 
     def find_template(self, template: str):
         test_path = os.path.normpath(os.path.abspath(f"{self.template_path}/{template}.j2"))
