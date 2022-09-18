@@ -1,6 +1,6 @@
+import inspect
 import os
 from jinja2 import Environment, FileSystemLoader
-from importlib.resources import files
 
 
 class TemplateEnv:
@@ -8,7 +8,7 @@ class TemplateEnv:
 
     def __init__(self, template_path: str = None):
         if template_path is None:
-            template_path = files(f"{self.__module__.rsplit('.', 1)[0]}").read_text()
+            template_path = os.path.join(os.path.basename(inspect.getfile(TemplateEnv)), 'default')
         self.template_path = os.path.normpath(os.path.abspath(template_path))
 
     def find_template(self, template: str):
