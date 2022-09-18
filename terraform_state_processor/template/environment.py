@@ -1,6 +1,6 @@
+import inspect
 import os
 from jinja2 import Environment, FileSystemLoader
-from importlib.resources import files
 
 
 class TemplateEnv:
@@ -8,7 +8,7 @@ class TemplateEnv:
 
     def __init__(self, template_path: str = None):
         if template_path is None:
-            template_path = files(f"{self.__module__}").read_text()
+            template_path = inspect.getfile(self.__class__)
             print(template_path)
         self.template_path = os.path.normpath(os.path.abspath(template_path))
 
