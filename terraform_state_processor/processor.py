@@ -20,11 +20,10 @@ class StateProcessor:
     def render_template(self, template: str = 'debug'):
         template = self.template.find_template(template)
         if template:
-            return str(template)
-            # return self.template.render_template(*template,
-            #                                      format_version=self.tfstate.format_version,
-            #                                      terraform_version=self.tfstate.terraform_version,
-            #                                      resources=self.tfstate.resources,
-            #                                      raw_entries=self.tfstate.entries)
+            return self.template.render_template(*template,
+                                                 format_version=self.tfstate.format_version,
+                                                 terraform_version=self.tfstate.terraform_version,
+                                                 resources=self.tfstate.resources,
+                                                 raw_entries=self.tfstate.entries)
         else:
             return "No Template Found."
