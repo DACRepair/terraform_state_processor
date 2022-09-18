@@ -10,7 +10,6 @@ class TemplateEnv:
         if template_path is None:
             template_path = files(f"{self.__module__}.default").read_text()
         self.template_path = os.path.normpath(os.path.abspath(template_path))
-        print(self.template_path)
 
     def find_template(self, template: str):
         test_path = os.path.normpath(os.path.abspath(f"{self.template_path}/{template}.j2"))
