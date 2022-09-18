@@ -8,7 +8,7 @@ class TemplateEnv:
 
     def __init__(self, template_path: str = None):
         if template_path is None:
-            template_path = inspect.getfile(self.__class__)
+            template_path = os.path.basename(inspect.getfile(self.__class__))
             print(template_path)
         self.template_path = os.path.normpath(os.path.abspath(template_path))
 
