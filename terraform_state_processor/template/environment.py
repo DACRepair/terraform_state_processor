@@ -8,7 +8,7 @@ class TemplateEnv:
 
     def __init__(self, template_path: str = None):
         if template_path is None:
-            template_path = files(f"{self.__module__}").read_text()
+            template_path = files(f"{self.__module__.rsplit('.', 1)[0]}").read_text()
         self.template_path = os.path.normpath(os.path.abspath(template_path))
 
     def find_template(self, template: str):
