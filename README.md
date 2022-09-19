@@ -135,10 +135,19 @@ Terraform Application Version: {{ terraform_version }}
 {%- endfor %}
 
 [Processed Resources]
-{%- for entry in data %}
+{%- for entry in resources %}
 {{ entry }}
 {%- endfor %}
 ```
+
+Within the template, you have several available data objects:
+
+| Name                 | Description                                             |
+|----------------------|---------------------------------------------------------|
+| `format_version`     | The state's format version.                             |
+| `terraform_version`  | The Terraform Version that generated the state.         |
+| `resources`          | The state resources processed by the tfstate_processor. |
+| `entries`            | The state's raw resources in dict format (list).        |
 
 For more information on how jinja2 works, see
 here: [Jinja Designer Documentation](https://jinja.palletsprojects.com/en/3.0.x/templates/)
