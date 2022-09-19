@@ -95,17 +95,31 @@ By default, the application only comes with a debugging template that shows the 
 
 You can specify a custom template by using the `--template` option
 
-Using a default template:
+By default the template can be in one of several places:
+
+- `./templates`
+- `~/.tfstate_processor/templates`
+- an absolute path (specify via `--template` with an absolute path).
+- one of the project defaults.
+
+If you specify a relative name or path for the templates, it will try to find it within the order listed above,
+otherwise
+and absolute path will always be that full path.
+
+For example:
 
 ```
-> terraform_state_processor --template my_cool_template
+/home/user/.tfstate_processor/templates
+  | - test.j2
+/$CWD/templates
+  | - testing
+  |  | - test.j2
+  | - test.j2
 ```
 
-Using an arbitrary template (must be an absolute path)
+If you were to specify: `--template test.j2`, it would resolve to `/$CWD/templates/test.j2`
 
-```
-> terraform_state_processor --template /data/templates/my_custom_template.j2
-```
+#### Building templates
 
 The template file is simply a flat representation of the output, using jinja2 to replace the areas you would like
 extracted from the state:

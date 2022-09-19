@@ -22,7 +22,6 @@ setup(
     package_data={"terraform_state_processor.template": ["default/*.j2"]},
 
     entry_points={'console_scripts': [
-        'tfstate_processor = terraform_state_processor.cli_app:cli_app',
-        'terraform_state_processor = terraform_state_processor.cli_app:cli_app'
+        'tfstate_processor = terraform_state_processor.processor:tfstate_processor',
     ]}
 )
