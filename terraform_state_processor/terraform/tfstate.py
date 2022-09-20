@@ -100,6 +100,8 @@ class TerraformState:
         modules = [x for x in modules if 'resources' in x.keys()]
         for module in modules:
             address = module.get('address')
+            address = address.lstrip('module.')
+
             resources = module.get('resources')
             for item in resources:
                 _type = item.get('type')
