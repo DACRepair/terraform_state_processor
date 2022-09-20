@@ -2,6 +2,7 @@ class BaseResource(object):
     __datatype__ = None
     __rawdata__ = None
 
+    module = '__kwarg__'
     name = 'name'
     type = 'type'
     index = 'index'
@@ -17,6 +18,9 @@ class BaseResource(object):
 
         data = object.__getattribute__(self, '__rawdata__').copy()
         kwargs = object.__getattribute__(self, '__kwargs__')
+
+        if object.__getattribute__(self, item) == '__kwarg__':
+            return kwargs.get(item)
 
         item = kwargs.get(item, object.__getattribute__(self, item))
         if item is not None:

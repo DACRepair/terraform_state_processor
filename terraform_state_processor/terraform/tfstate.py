@@ -98,14 +98,15 @@ class TerraformState:
                 modules.extend(value)
         modules = [x for x in modules if isinstance(x, dict)]
         modules = [x for x in modules if 'resources' in x.keys()]
-        self.entries = [item for resources in modules for item in resources.get('resources')]
-
-        for item in self.entries:
-            _type = item.get('type')
-            _type = _type if _type in self._resource_processors.keys() else None
-            processor = self._resource_processors.get(_type)
-            if processor is not None:
-                self.resources.append(processor(item))
+        for module in modules:
+            address = module.get('address')
+            resources = module.get('resources')
+            for item in resources:
+                _type = item.get('type')
+                _type = _type if _type in self._resource_processors.keys() else None
+                processor = self._resource_processors.get(_type)
+                if processor is not None:
+                    self.resources.append(processor(item, module=address))
 
     def __str__(self):
         header = f"<Terraform State Processor[Format {self.format_version}, Terraform {self.terraform_version}]"
