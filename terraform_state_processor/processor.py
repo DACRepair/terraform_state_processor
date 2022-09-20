@@ -41,11 +41,14 @@ class StateProcessor:
 
 
 @click.command()
-@click.option("--tfstate", default="./tfstate.json",
+@click.option("--tfstate", default=os.getenv("TFSTATE_TFSTATE", "./tfstate.json"),
               help="The terraform state json file path (default: ./tfstate.json).")
-@click.option("--processors", default="./resource_types", help="Add custom processors")
-@click.option("--template", default="debug", help="The template you would like to generate.")
-@click.option("--outfile", default=None, help="The file to write the output to (default is to stdout).")
+@click.option("--processors", default=os.getenv("TFSTATE_PROCESSORS", "./resource_types"),
+              help="Add custom processors")
+@click.option("--template", default=os.getenv("TFSTATE_TEMPLATE", "debug"),
+              help="The template you would like to generate.")
+@click.option("--outfile", default=os.getenv("TFSTATE_OUTFILE", None),
+              help="The file to write the output to (default is to stdout).")
 def tfstate_processor(tfstate, processors, template, outfile):
     """Generates text data from the terraform state."""
     tfstate = os.path.normpath(os.path.abspath(tfstate))

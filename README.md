@@ -39,6 +39,30 @@ Once this has been completed, usage is simple by executing a docker container vi
 
 ### Configuration and usage
 
+#### Help Text
+
+```
+Usage: main.py [OPTIONS]
+
+  Generates text data from the terraform state.
+
+Options:
+  --tfstate TEXT     The terraform state json file path (default: ./tfstate.json).
+  --processors TEXT  Add custom processors
+  --template TEXT    The template you would like to generate.
+  --outfile TEXT     The file to write the output to (default is to stdout).
+  --help             Show this message and exit.
+```
+
+#### Arguements
+
+| Argument       | Environment          | Default     | Description                                                                     |
+|----------------|----------------------|-------------|---------------------------------------------------------------------------------|
+| `--tfstate`    | `TFSTATE_TFSTATE`    | `./tfstate` | The path to the tfstate file.                                                   |
+| `--processors` | `TFSTATE_PROCESSORS` |             | A folder path with custom resource processors.                                  |
+| `--template`   | `TFSTATE_TEMPLATE`   |             | The path to the template file (may be relative), see info in template creation. |
+| `--outfile`    | `TFSTATE_OUTFILE`    |             | Specify a path to output template contents to. Prints to STDOUT if not used.    |
+
 #### State File
 
 The `terraform_state_processor` command by default looks for a `tfstate.json` file. On the docker image this would be
