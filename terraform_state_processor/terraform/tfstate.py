@@ -67,6 +67,9 @@ class TerraformState:
         return _processors
 
     def _load_external_resource_processors(self, package_dir: str):
+        if not package_dir:
+            return {}
+
         package_dir = os.path.abspath(package_dir)
         if not os.path.isdir(package_dir):
             return {}
