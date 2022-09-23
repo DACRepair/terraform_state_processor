@@ -103,7 +103,9 @@ class TerraformState:
         modules = [x for x in modules if 'resources' in x.keys()]
         for module in modules:
             address = module.get('address')
-            address = address.lstrip('module.')
+            address = address.split('.')
+            address = address[1:]
+            address = '.'.join(address)
 
             resources = module.get('resources')
             for item in resources:
