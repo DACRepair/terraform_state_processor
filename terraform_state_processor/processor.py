@@ -33,7 +33,7 @@ class StateProcessor:
         abspath = False
         if os.path.isfile(os.path.abspath(template)):
             abspath = True
-        return self.template.render_template(template, abs_path=abspath,
+        return self.template.render_template(template, abs_path=abspath, env=os.environ,
                                              format_version=self.tfstate.format_version,
                                              terraform_version=self.tfstate.terraform_version,
                                              resources=self.tfstate.resources,
